@@ -1,0 +1,1 @@
+cookbook 'rabbitmq_service', :path => '/Users/james/workspace/rabbitmq-plugin-dev/rabbit-chef-repo/rabbitmq_service'
