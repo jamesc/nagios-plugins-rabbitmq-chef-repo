@@ -1,0 +1,5 @@
+{
+  "id": "rabbitmq_aliveness",
+  "hostgroup_name": "linux",
+  "command_line": "$USER1$/check_rabbitmq_aliveness -H $HOSTADDRESS$ --port 15672"
+}

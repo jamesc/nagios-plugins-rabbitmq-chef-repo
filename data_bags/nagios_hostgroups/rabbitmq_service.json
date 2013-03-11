@@ -1,0 +1,5 @@
+{
+  "search_query": "hostname:*",
+  "hostgroup_name": "rabbitmq_service",
+  "id": "rabbitmq_service"
+}

@@ -11,11 +11,12 @@
 # from your OS user export OPSCODE_USER=bofh
 
 user = ENV['OPSCODE_USER'] || ENV['USER']
-orgname = ENV['OPSCODE_ORGNAME']
+orgname = ENV['OPSCODE_ORGNAME'] || 'rabbitmq_test'
 
 base_box = ENV['VAGRANT_BOX'] || 'opscode-ubuntu-10.04'
 # Chef Server
 server = "https://api.opscode.com/organizations/#{orgname}"
+OMNIBUS_CHEF_VERSION = "11.4.0"
 
 Vagrant::Config.run do |config|
 
@@ -27,6 +28,15 @@ Vagrant::Config.run do |config|
   config.vm.network :hostonly, "33.33.33.100"
 
   config.vm.provision :shell, :path => "scripts/bootstrap.sh"
+  config.vm.provision :shell, :inline => <<-INSTALL_OMNIBUS
+    if [ ! -d "/opt/chef" ] ||
+       [ ! $(chef-solo --v | awk "{print \\$2}") = "#{OMNIBUS_CHEF_VERSION}" ]
+    then
+      wget -qO- https://www.opscode.com/chef/install.sh | sudo bash -s -- -v #{OMNIBUS_CHEF_VERSION}
+    else
+      echo "Chef #{OMNIBUS_CHEF_VERSION} already installed...skipping installation."
+    fi
+  INSTALL_OMNIBUS
   config.vm.provision :chef_client do |chef|
     chef.chef_server_url = server
     chef.validation_key_path = "#{ENV['HOME']}/.chef/#{orgname}-validator.pem"
@@ -40,7 +50,12 @@ Vagrant::Config.run do |config|
 
     # logging
     #chef.log_level = :info
+    chef.json = {
+    }
 
-    chef.run_list = [ "role[rabbitmq]"]
+    chef.run_list = [ "recipe[rabbitmq_service]",
+                      "recipe[nagios::client]",
+                      "role[monitoring]"
+    ]
   end
 end

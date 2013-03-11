@@ -1,0 +1,7 @@
+{
+  "address": "www.opscode.com",
+  "hostgroups": ["web_server"],
+  "id": "www_opscode_com",
+  "notifications": 1
+}
+

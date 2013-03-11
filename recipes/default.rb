@@ -4,8 +4,8 @@
 #
 # Copyright 2012, Opscode, Inc
 #
-# Apache2
-#
+
+include_recipe "rabbitmq::mgmt_console"
 
 %w{libnagios-plugin-perl libjson-perl}.each do |pkg|
   package pkg do
@@ -13,16 +13,7 @@
   end
 end
 
-rabbitmq_user "user" do
-  password "sekret"
-  action :add
-end
-
-
-rabbitmq_plugin "rabbitmq_management" do
-  action :enable
-end
-
+include_recipe "git::default"
 git "/opt/nagios-plugins-rabbitmq" do
   repository "git://github.com/jamesc/nagios-plugins-rabbitmq.git"
   reference "master"
