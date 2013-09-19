@@ -14,7 +14,7 @@ include_recipe "rabbitmq::mgmt_console"
   end
 end
 
-scripts = %w{aliveness objects overview queue server watermark}
+scripts = %w{aliveness objects overview partition queue shovels server watermark}
 
 scripts.each do |script|
   link "/usr/lib/nagios/plugins/check_rabbitmq_#{script}" do
