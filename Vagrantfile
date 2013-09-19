@@ -32,6 +32,11 @@ Vagrant::Config.run do |config|
   config.vm.box = base_box
   config.vm.network :hostonly, "33.33.33.100"
 
+  %w{nagios-plugins-rabbitmq}.each do |repo|
+    config.vm.share_folder "#{repo}", "/opt/#{repo}", "../#{repo}"
+    config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{repo}", "1"]
+  end
+
   config.vm.provision :shell, :path => "scripts/bootstrap.sh"
   config.vm.provision :shell, :inline => <<-INSTALL_OMNIBUS
     if [ ! -d "/opt/chef" ] ||
