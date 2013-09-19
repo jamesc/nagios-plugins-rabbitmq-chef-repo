@@ -29,3 +29,5 @@ This should upload the cookbook dependencies and provision a rabbitmq.
 A checkout of the `nagios-plugins-rabbitmq` repository is dropped into
 /opt
 
+
+nagiosadmin webui password is nagiosadmin
