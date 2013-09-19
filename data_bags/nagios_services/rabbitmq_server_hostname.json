@@ -1,0 +1,5 @@
+{
+  "id": "rabbitmq_server_hostname",
+  "hostgroup_name": "linux",
+  "command_line": "$USER1$/check_rabbitmq_server -H $HOSTNAME$ --port 15672"
+}

@@ -1,7 +1,7 @@
 {
   "id": "nagiosadmin",
   "groups": "sysadmin",
-  "htpasswd": "{SHA}/i0Kels0lRtuw8RhhPHtPq4ZRZ0=",
+  "htpasswd": "{SHA}nisVkr0TvqdZ2rHjARyrfvR5MM0=",
   "nagios": {
     "pager": "nagiosadmin_pager@example.com",
     "email": "nagiosadmin@example.com"
