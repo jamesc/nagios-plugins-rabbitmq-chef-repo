@@ -7,5 +7,5 @@ version          "0.1.0"
 name             "rabbitmq_service"
 
 depends "git"
-depends "rabbitmq"
+depends "rabbitmq", ">= 2.3.0"
 depends "nagios"
